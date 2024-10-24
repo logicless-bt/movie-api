@@ -84,13 +84,14 @@ app.get('/movies/genre/:genreName', (req, res) => {
 	res.send('Genre GET request successful. Genre returned.')
 });
 
-app.get('/movies/director/directorName', (req, res) => {
+app.get('/movies/director/:directorName', (req, res) => {
 	res.send('Director GET request successful. Director bio and relevant filmography returned.')
 });
 
 //POST
 app.post('/users', (req, res) => {
-    const newUser = req.body;
+	res.send('User creation POST request successful.')
+    /*const newUser = req.body;
 
     if (newUser.name) {
         newUser.id = uuid.v4();
@@ -98,7 +99,7 @@ app.post('/users', (req, res) => {
         res.status(201).json(newUser)
     } else {
         res.status(400).send('users need names')
-    }
+    }*/
 });
 
 app.post('/users/:userID/:movieTitle', (req, res) => {
