@@ -16,7 +16,7 @@ app.use(express.static('public'));
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 app.use(morgan('combined', {stream: accessLogStream}));
 
-let topMovies = [
+let movies = [
 	{
 		title:'All of Us Strangers',
 		director: 'Andrew Haigh' 
@@ -59,9 +59,9 @@ let topMovies = [
 	}
 ];
 
-//requests
+//GET
 app.get('/', (req, res) => {
-	res.send('Get ready for the top ten queer films!');
+	res.send('Get ready for the top queer films!');
 });
 
 app.get('/documentation', (req, res) => {
@@ -69,11 +69,57 @@ app.get('/documentation', (req, res) => {
 });
 
 app.get('/movies', (req, res) => {
-	res.json(topMovies);
+	res.status(200).json(movies);
 });
 
 app.get('/secreturl', (req, res) => {
   res.send('Consider this an easter egg.');
+});
+
+app.get('/movies/:title', (req, res) => {
+	res.send('Single-movie GET request successful. Description, director, genre, and image returned.')
+});
+
+app.get('/movies/genre/:genreName', (req, res) => {
+	res.send('Genre GET request successful. Genre returned.')
+});
+
+app.get('/movies/director/directorName', (req, res) => {
+	res.send('Director GET request successful. Director bio and relevant filmography returned.')
+});
+
+//POST
+app.post('/users', (req, res) => {
+    const newUser = req.body;
+
+    if (newUser.name) {
+        newUser.id = uuid.v4();
+        users.push(newUser);
+        res.status(201).json(newUser)
+    } else {
+        res.status(400).send('users need names')
+    }
+});
+
+app.post('/users/:userID/:movieTitle', (req, res) => {
+	res.send('Favorite POST request successful.')
+});
+
+
+//PUT
+app.put('/users/:userID', (req, res) => {
+	res.send('User update PUT request successful.')
+});
+
+
+
+//DELETE
+app.delete('/users/:userID/movies/:movieID', (req, res) => {
+	res.send('Favorite removal DELETE request successful.')
+});
+
+app.delete('/users/:userID', (req, res) => {
+	res.send('User deregister DELETE requst successful.')
 });
 
 //error handling
@@ -82,44 +128,8 @@ app.use((err, req, res, next) => {
   res.status(500).send('An error occurred.');
 });
 
+
 //listens
 app.listen(8080, () => {
 	console.log('Listening on port 8080');
 });
-
-//create server, previous usage
-/*http.createServer((request, response) => {
-	let addr = request.url,
-		q = new URL(addr, 'http://' + request.headers.host),
-		filePath = '';
-
-
-	//appends the url address and timestamp to log.txt
-  	fs.appendFile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', (err) => {
-	    if (err) {
-	      console.log(err);
-	    } else {
-	      console.log('Added to log.');
-	    }
-	  });
-
-  	//ensures users visit documentation if they are trying to go there, otherwise sends to index.html
-	if (q.pathname.includes('documentation')) {
-	    filePath = (__dirname + '/documentation.html');
-	  } else {
-	    filePath = 'index.html';
-	  }
-
-	fs.readFile(filePath, (err, data) => {
-		if (err) {
-	      throw err;
-	    }
-
-	    response.writeHead(200, { 'Content-Type': 'text/html' });
-	    response.write(data);
-	    response.end();
-
-  });
-
-}).listen(8080);
-console.log('My test server is running on Port 8080.');*/

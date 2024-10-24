@@ -2,7 +2,18 @@
 
 <html>
 	<head>
-		<title>API</title>
+		<title>QFilms API</title>
+		<style>
+			table {
+				width: 100%;
+				margin: 15px;
+			}
+			table, td, th {
+				padding: 8px;
+				text-align: center;
+				border: 1px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -10,13 +21,115 @@
 
 		</header>
 
-		<h3>
-			`LGBTQ+ Films`
-		</h3>
+		<h2>
+			`Documentation`
+		</h2>
 
 		<p>"This is an API dedicated to compiling and organizing different queer films."</p>
 
 
+		<table>
+			<!--header-->
+			<th>
+				<td>Request</td>
+				<td>URL</td>
+				<td>Method</td>
+				<td>Parameters</td>
+				<td>Request Format</td>
+				<td>Response Format</td>
+				<td>Description</td>
+			</th>
+			<!--get movies-->
+			<tr>
+				<td>Get All Movies</td>
+				<td>/movies/</td>
+				<td>GET</td>
+				<td>N/A</td>
+				<td>N/A</td>
+				<td>JSON containing a movie array</td>
+				<td>Returns a list of all movies</td>
+			</tr>
+			<!--Search movie by title-->
+			<tr>
+				<td>Find Movie By Title</td>
+				<td>/movies/:title</td>
+				<td>GET</td>
+				<td>Title</td>
+				<td>title (URL)</td>
+				<td>JSON object with a single movie</td>
+				<td>Returns the data of a specified movie</td>
+			</tr>
+			<!--Search by genre-->
+			<tr>
+				<td>Get Movie By Genre</td>
+				<td>/movies/genre/:genreName</td>
+				<td>GET</td>
+				<td>Genre</td>
+				<td>genre (URL)</td>
+				<td>JSON object with genre name</td>
+				<td>Returns a movie's genre</td>
+			</tr>
+			<!--Search by director-->
+			<tr>
+				<td>Get Movies By Director</td>
+				<td>/movies/director/:directorsName</td>
+				<td>GET</td>
+				<td>Director</td>
+				<td>irector (URL)</td>
+				<td>JSON object with data about director & their movies</td>
+				<td>Returns a director's bio and work</td>
+			</tr>
+			<!--create user-->
+			<tr>
+				<td>Create a New User</td>
+				<td>/users</td>
+				<td>POST</td>
+				<td>username (URL)</td>
+				<td>N/A</td>
+				<td>Returns a JSON object with user information</td>
+				<td>Allows the creation of a new user account</td>
+			</tr>
+			<!-- update username-->
+			<tr>
+				<td>Update a Username</td>
+				<td>/users/:username</td>
+				<td>PUT</td>
+				<td>Username</td>
+				<td>JSON object with update information</td>
+				<td>Confirmation message</td>
+				<td>Allows a user to update their profile</td>
+			</tr>
+			<!-- Favorite a movie-->
+			<tr>
+				<td>Add Movie to Favorites</td>
+				<td>/users/:username/movies/:movieID</td>
+				<td>POST</td>
+				<td>username, movieID</td>
+				<td>N/A</td>
+				<td>Confirmation message</td>
+				<td>Allows users to favorite a movie</td>
+			</tr>
+			<!--Remove favorite-->
+			<tr>
+				<td>/users/:username/movies/:movieID</td>
+				<td>/users/:username/movies/:movieID</td>
+				<td>DELETE</td>
+				<td>username, movieID (URL)</td>
+				<td>N/A</td>
+				<td>Confirmation message</td>
+				<td>Allows a user to remove a favorite movie</td>
+			</tr>
+			<!--Delete account-->
+			<tr>
+				<td>Delete a profile</td>
+				<td>/users/:username</td>
+				<td>DELETE</td>
+				<td>username (URL)</td>
+				<td>N/A</td>
+				<td>Confirmation message</td>
+				<td>Permanently deletes a user's profile</td>
+			</tr>
+		</table>
 	</body>
 
 
