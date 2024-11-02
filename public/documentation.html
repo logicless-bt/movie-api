@@ -52,7 +52,7 @@
 			<!--Search movie by title-->
 			<tr>
 				<td>Find Movie By Title</td>
-				<td>/movies/:title</td>
+				<td>/movies/:Title</td>
 				<td>GET</td>
 				<td>Title</td>
 				<td>title (URL)</td>
@@ -72,10 +72,10 @@
 			<!--Search by director-->
 			<tr>
 				<td>Get Movies By Director</td>
-				<td>/movies/director/:directorsName</td>
+				<td>/movies/director/:directorName</td>
 				<td>GET</td>
 				<td>Director</td>
-				<td>irector (URL)</td>
+				<td>director (URL)</td>
 				<td>JSON object with data about director & their movies</td>
 				<td>Returns a director's bio and work</td>
 			</tr>
@@ -102,7 +102,7 @@
 			<!-- Favorite a movie-->
 			<tr>
 				<td>Add Movie to Favorites</td>
-				<td>/users/:username/movies/:movieID</td>
+				<td>/users/:Username/FavoriteMovies/:movieID</td>
 				<td>POST</td>
 				<td>username, movieID</td>
 				<td>N/A</td>
@@ -111,8 +111,8 @@
 			</tr>
 			<!--Remove favorite-->
 			<tr>
-				<td>/users/:username/movies/:movieID</td>
-				<td>/users/:username/movies/:movieID</td>
+				<td>Remove a Movie from Favorites</td>
+				<td>/users/:Username/FavoriteMovies/:movieID</td>
 				<td>DELETE</td>
 				<td>username, movieID (URL)</td>
 				<td>N/A</td>
@@ -122,7 +122,7 @@
 			<!--Delete account-->
 			<tr>
 				<td>Delete a profile</td>
-				<td>/users/:username</td>
+				<td>/users/:Username</td>
 				<td>DELETE</td>
 				<td>username (URL)</td>
 				<td>N/A</td>
