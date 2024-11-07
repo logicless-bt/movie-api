@@ -226,7 +226,7 @@ app.post('/users', async (req, res) => {
 
 app.post('/users/:Username/FavoriteMovies/:MovieID', async (req, res) => {
 	await Users.findOneAndUpdate({ Username: req.params.Username }, {
-		$push: {'Users.FavoriteMovies': req.params.MovieID }
+		$push: { FavoriteMovies: req.params.MovieID }
 	},
 	{new: true})
 	.then((updatedUser) => {
