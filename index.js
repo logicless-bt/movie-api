@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const uuid = require('uuid');
 
 //setting up Mongo
 const Movies = Models.Movie;
@@ -15,6 +16,8 @@ mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useU
 //setting up morgan and static
 app.use(morgan('common'));
 app.use(express.static('public'));
+/*app.use(express.json());
+app.use(express.urlencoded({ extended: true}));*/
 
 //creating the write stream and creating logger
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
@@ -135,7 +138,7 @@ app.get('/movies', async (req, res) => {
 		});
 });
 
-app.get('/secreturl', (req, res) => {
+app.get('/secreturl', async (req, res) => {
   res.send('Consider this an easter egg.');
 });
 
@@ -150,8 +153,8 @@ app.get('/movies/:Title', async (req, res) => {
 		});
 });
 
-app.get('/movies/genre/:GenreName', async (req, res) => {
-	await Movies.find({ 'Genre.Name': req.params.GenreName })
+app.get('/movies/genre/:genre', async (req, res) => {
+	await Movies.find({ 'Genre.Name': req.params.genre })
 	.then((movies) => {
 		res.status(201).json(movies);
 	})
@@ -161,8 +164,8 @@ app.get('/movies/genre/:GenreName', async (req, res) => {
 	});
 });
 
-app.get('/movies/director/:DirectorName', async (req, res) => {
-	await Movies.find({ DirectorName: req.params.DirectorName })
+app.get('/movies/director/:director', async (req, res) => {
+	await Movies.find({ 'Director.Name': req.params.director })
 	.then((movies) => {
 		res.status(201).json(movies);
 	})
@@ -196,7 +199,7 @@ app.get('/users/:Username', async (req, res) => {
 
 //POST
 app.post('/users', async (req, res) => {
-	await Users.findOne({Username: req.body.Username})
+	await Users.findOne({ Username: req.body.Username })
 		.then((user) => {
 			if (user) {
 				return res.status(400).send(req.body.Username + 'already exists');
@@ -223,7 +226,7 @@ app.post('/users', async (req, res) => {
 
 app.post('/users/:Username/FavoriteMovies/:MovieID', async (req, res) => {
 	await Users.findOneAndUpdate({ Username: req.params.Username }, {
-		$push: {FavoriteMovies: req.params.MovieID}
+		$push: {'Users.FavoriteMovies': req.params.MovieID }
 	},
 	{new: true})
 	.then((updatedUser) => {
@@ -257,9 +260,9 @@ app.put('/users/:Username', async (req, res) => {
 	})
 });
 
-app.put('/users/:userID', (req, res) => {
+/*app.put('/users/:userID', (req, res) => {
 	res.send('User update PUT request successful.')
-});
+});*/
 
 
 
@@ -279,9 +282,10 @@ app.delete('/users/:Username', async (req, res) => {
     });
 });
 
-app.delete('/users/:userID', (req, res) => {
+//redundant?
+/*app.delete('/users/:userID', (req, res) => {
 	res.send('User deregister DELETE requst successful.')
-});
+});*/
 
 app.delete('/users/:Username/FavoriteMovies/:MovieID', async (req, res) => {
 	await Users.findOneAndUpdate({ Username: req.params.Username }, {
