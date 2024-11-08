@@ -14,11 +14,12 @@ const Movies = Models.Movie;
 const Users = Models.User;
 mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true }); //should be cdDB?
 
-//setting up morgan and static
+//setting up morgan, static, body-parser, and auth
 app.use(morgan('common'));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
+let auth = require('./auth')(app);
 
 //creating the write stream and creating logger
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})

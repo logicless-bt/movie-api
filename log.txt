@@ -237,3 +237,4 @@ Timestamp: Tue Oct 22 2024 11:50:25 GMT-0400 (Eastern Daylight Time)
 ::ffff:127.0.0.1 - - [08/Nov/2024:01:10:23 +0000] "DELETE /users/whatever1 HTTP/1.1" 200 22 "-" "PostmanRuntime/7.42.0"
 ::ffff:127.0.0.1 - - [08/Nov/2024:01:11:28 +0000] "GET /users/good_time_not_long_time HTTP/1.1" 200 204 "-" "PostmanRuntime/7.42.0"
 ::ffff:127.0.0.1 - - [08/Nov/2024:01:11:43 +0000] "DELETE /users/good_time_not_long_time/FavoriteMovies/671e6893f0e159660086b01f HTTP/1.1" 200 177 "-" "PostmanRuntime/7.42.0"
+::ffff:192.168.1.1 - - [08/Nov/2024:18:29:30 +0000] "GET / HTTP/1.1" 200 34 "-" "-"
