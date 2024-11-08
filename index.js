@@ -7,6 +7,7 @@ const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const uuid = require('uuid');
+const bodyParser = require('body-parser');
 
 //setting up Mongo
 const Movies = Models.Movie;
@@ -16,8 +17,8 @@ mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useU
 //setting up morgan and static
 app.use(morgan('common'));
 app.use(express.static('public'));
-/*app.use(express.json());
-app.use(express.urlencoded({ extended: true}));*/
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
 
 //creating the write stream and creating logger
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})

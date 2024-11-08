@@ -213,3 +213,8 @@ Timestamp: Tue Oct 22 2024 11:50:25 GMT-0400 (Eastern Daylight Time)
 ::ffff:127.0.0.1 - - [07/Nov/2024:01:24:37 +0000] "POST /users/motherof5/FavoriteMovies/671e67b7f0e159660086b01e HTTP/1.1" 200 141 "-" "PostmanRuntime/7.42.0"
 ::ffff:127.0.0.1 - - [07/Nov/2024:01:25:07 +0000] "GET /users HTTP/1.1" 201 584 "-" "PostmanRuntime/7.42.0"
 ::ffff:127.0.0.1 - - [07/Nov/2024:01:26:22 +0000] "POST /users/motherof5 HTTP/1.1" 404 155 "-" "PostmanRuntime/7.42.0"
+::ffff:127.0.0.1 - - [07/Nov/2024:01:31:13 +0000] "GET /movies/director/Andrew%20Haigh HTTP/1.1" 201 1133 "-" "PostmanRuntime/7.42.0"
+::ffff:127.0.0.1 - - [07/Nov/2024:01:39:44 +0000] "GET /movies/director/Andrew%20Haigh HTTP/1.1" 201 1133 "-" "PostmanRuntime/7.42.0"
+::ffff:127.0.0.1 - - [07/Nov/2024:02:23:38 +0000] "GET /users HTTP/1.1" 201 584 "-" "PostmanRuntime/7.42.0"
+::ffff:127.0.0.1 - - [08/Nov/2024:00:26:22 +0000] "POST /users HTTP/1.1" 201 172 "-" "PostmanRuntime/7.42.0"
+::ffff:127.0.0.1 - - [08/Nov/2024:00:26:31 +0000] "GET /users HTTP/1.1" 201 848 "-" "PostmanRuntime/7.42.0"
