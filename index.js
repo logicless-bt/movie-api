@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const Models = require('./models.js');
 const uuid = require('uuid');
 const bodyParser = require('body-parser');
+const { check, validationResult } = require('express-validator');
 
 //setting up Mongo
 const Movies = Models.Movie;
@@ -19,6 +20,8 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
+const cors = require('cors');
+app.use(cors());
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
@@ -108,16 +111,31 @@ app.get('/users/:Username',  passport.authenticate('jwt', { session: false }), a
 });
 
 //POST
-app.post('/users', async (req, res) => {
-	await Users.findOne({ Username: req.body.Username })
+app.post('/users', 
+	//validation logic here
+	[
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  	], async (req, res) => {
+  	//validate for errors
+  	let errors = validationResult(req);
+
+  	if(!errors.isEmpty()) {
+  		return res.status(422).json({ errors: errors.array() });
+  	}
+
+	let hashedPassword = Users.hashPassword(req.body.Password);
+	await Users.findOne({ Username: req.body.Username }) //search to see if username is taken
 		.then((user) => {
-			if (user) {
+			if (user) { //sends response if user is taken
 				return res.status(400).send(req.body.Username + 'already exists');
 			} else {
 				Users
 					.create({
 						Username: req.body.Username,
-						Password: req.body.Password,
+						Password: hashedPassword,
 						Email: req.body.Email,
 						Birthday: req.body.Birthday
 					})
@@ -152,6 +170,9 @@ app.post('/users/:Username/FavoriteMovies/:MovieID',  passport.authenticate('jwt
 //PUT
 //update user info by username, expecting JSON w/ username, password, email, birthday
 app.put('/users/:Username',  passport.authenticate('jwt', { session: false }), async (req, res) => {
+	if(req.user.Username !== req.params.Username) {
+        return res.status(400).send('Permission denied');
+    }
 	await Users.findOneAndUpdate({ Username: req.params.Username }, {$set: 
 		{
 			Username: req.body.Username,
@@ -220,5 +241,9 @@ app.use((err, req, res, next) => {
 
 //listens
 app.listen(8080, () => {
-	console.log('Listening on port 8080');
-});
+    const port = process.env.PORT || 8080;
+    app.listen(port, '0.0.0.0',() => {
+     console.log('Listening on Port ' + port);
+    });
+
+
