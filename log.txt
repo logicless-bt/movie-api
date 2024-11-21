@@ -255,3 +255,8 @@ Timestamp: Tue Oct 22 2024 11:50:25 GMT-0400 (Eastern Daylight Time)
 ::ffff:127.0.0.1 - - [12/Nov/2024:19:52:57 +0000] "POST /users HTTP/1.1" 201 225 "-" "PostmanRuntime/7.42.0"
 ::ffff:127.0.0.1 - - [12/Nov/2024:19:53:37 +0000] "POST /users HTTP/1.1" 201 228 "-" "PostmanRuntime/7.42.0"
 ::ffff:127.0.0.1 - - [12/Nov/2024:19:54:09 +0000] "POST /users HTTP/1.1" 201 226 "-" "PostmanRuntime/7.42.0"
+127.0.0.1 - - [21/Nov/2024:03:25:36 +0000] "GET /users HTTP/1.1" 401 - "-" "PostmanRuntime/7.42.0"
+127.0.0.1 - - [21/Nov/2024:03:25:47 +0000] "GET /movies HTTP/1.1" 401 - "-" "PostmanRuntime/7.42.0"
+127.0.0.1 - - [21/Nov/2024:03:30:32 +0000] "POST /users HTTP/1.1" 201 220 "-" "PostmanRuntime/7.42.0"
+127.0.0.1 - - [21/Nov/2024:03:31:32 +0000] "GET /movies HTTP/1.1" 201 6734 "-" "PostmanRuntime/7.42.0"
+127.0.0.1 - - [21/Nov/2024:03:31:37 +0000] "GET /users HTTP/1.1" 201 1773 "-" "PostmanRuntime/7.42.0"
