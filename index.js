@@ -33,7 +33,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {f
 app.use(morgan('combined', {stream: accessLogStream}));
 
 //GET
-app.get('/',  passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/', (req, res) => {
 	res.send('Get ready for the top queer films!');
 });
 
