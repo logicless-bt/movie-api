@@ -25,6 +25,9 @@ Create users and users' favorite movies
 Authenticate said users
 
 TECHNICAL
+
 Node.js and Express -- web server and API
+
 MongoDB and Mongoose -- database creation and alteration
+
 JWT -- authenticate users
