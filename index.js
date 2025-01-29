@@ -32,6 +32,12 @@ require('./passport');
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 app.use(morgan('combined', {stream: accessLogStream}));
 
+//ensures fresh data rather than cached data (for updates)
+app.use((req, res, next) => {
+	res.set('Cache-Control', 'no-store');
+	next();
+})
+
 //GET
 app.get('/', (req, res) => {
 	res.send('Get ready for the top queer films!');
